@@ -38,13 +38,13 @@ from os.path import join, dirname
 import psycopg2
 import boto3
 
-load_dotenv(verbose=True)
-POSTG_ID = os.environ['PG_ID']
-POSTG_PW = os.environ['PG_PW']
-POSTG_DB = os.environ['PG_DB']
+# load_dotenv(verbose=True)
+# POSTG_ID = os.environ['PG_ID']
+# POSTG_PW = os.environ['PG_PW']
+# POSTG_DB = os.environ['PG_DB']
 
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+# dotenv_path = join(dirname(__file__), '.env')
+# load_dotenv(dotenv_path)
 
 app = Flask(__name__)
 # LOG = create_logger(app)
@@ -52,15 +52,8 @@ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 AWS_REGION_NAME = os.environ['AWS_REGION_NAME']
-USER_ID = os.environ['USER_ID']
-USER_PD = os.environ['USER_PD']
 app.secret_key = os.environ['SECRET_KEY']
 DATABASE_URL = os.environ['DATABASE_URL']
-auth = HTTPDigestAuth()
-
-users = {
-    USER_ID: USER_PD
-}
 
 face_cascade_path = './haarcascade_frontalface_alt.xml'
 face_cascade = cv2.CascadeClassifier(face_cascade_path)
@@ -116,13 +109,13 @@ def index():
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
-    # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-    conn = psycopg2.connect(
-        host="0.0.0.0",
-        port=5432,
-        database=POSTG_DB,
-        user=POSTG_ID,
-        password=POSTG_PW)
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    # conn = psycopg2.connect(
+    #     host="0.0.0.0",
+    #     port=5432,
+    #     database=POSTG_DB,
+    #     user=POSTG_ID,
+    #     password=POSTG_PW)
     shutil.rmtree(SAVE_DIR)
     os.mkdir(SAVE_DIR)
     s3 = boto3.client('s3', region_name='ap-northeast-1',

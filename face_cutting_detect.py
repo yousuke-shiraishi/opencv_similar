@@ -11,7 +11,11 @@ from os.path import join, dirname
 # POSTG_ID = os.environ['PG_ID']
 # POSTG_PW = os.environ['PG_PW']
 # POSTG_DB = os.environ['PG_DB']
-
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_REGION_NAME = os.environ['AWS_REGION_NAME']
+DATABASE_URL = os.environ['DATABASE_URL']
 
 SAVE_DIR = "./images"
 # カーソル作成
@@ -57,5 +61,5 @@ for file_n in files:
     s3 = boto3.resource('s3')  # S3オブジェクトを取得
 
     bucket = s3.Bucket(AWS_STORAGE_BUCKET_NAME)
-    bucket.upload_file(filename, 'actress/' + file_m)
+    bucket.upload_file(filename, 'actress/' + file_n)
 conn.close()
