@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>
+        ファイルをアップロードして判定しよう
+    </h1>
+    <form action="{{ url_for('upload') }}" method = post enctype = multipart/form-data>
+        <p><input type="file" name="image" accept="image/png, image/jpeg, image/jpg" required></p>
+        <input type = submit value = Upload>
+    </form>
+    {% if img_url %}
+        <div>
+            <p>選択したファイル</p>
+            <img src="{{ img_url }}" style="margin-top: 10px; vertical-align: bottom; width: 200px;">
+        </div>
+    {% endif %}
+    {% if data %}
+        {% for path,es in data %}
+            <div>
+            <img src="{{ path }}" style="margin-top: 10px; vertical-align: bottom; width: 200px;">
+            {{ es }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
